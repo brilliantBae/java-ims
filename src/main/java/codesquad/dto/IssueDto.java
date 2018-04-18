@@ -35,7 +35,11 @@ public class IssueDto {
 
 	}
 
+<<<<<<< HEAD
 	public IssueDto(User loginUser, String subject, String comment) {
+=======
+	public IssueDto(@LoginUser User loginUser, String subject, String comment) {
+>>>>>>> step3
 		this.user = loginUser;
 		this.subject = subject;
 		this.comment = comment;

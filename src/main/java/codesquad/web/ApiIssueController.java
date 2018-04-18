@@ -2,6 +2,7 @@ package codesquad.web;
 
 import javax.annotation.Resource;
 
+<<<<<<< HEAD
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,11 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import codesquad.domain.User;
 import codesquad.security.LoginUser;
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+>>>>>>> step3
 import codesquad.service.IssueService;
 
 @RestController
 @RequestMapping("/api/issues")
 public class ApiIssueController {
+<<<<<<< HEAD
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Resource(name = "issueService")
@@ -37,4 +44,9 @@ public class ApiIssueController {
 		issueService.registerLabel(loginUser, id, labelId);
 	}
 	
+=======
+	@Resource(name = "issueService")
+	private IssueService issueService;
+	
+>>>>>>> step3
 }

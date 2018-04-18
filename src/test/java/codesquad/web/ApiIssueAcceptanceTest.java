@@ -17,6 +17,7 @@ import codesquad.domain.MileStoneRepository;
 import codesquad.domain.User;
 import codesquad.domain.UserRepository;
 import codesquad.service.IssueService;
+
 import support.test.AcceptanceTest;
 
 public class ApiIssueAcceptanceTest extends AcceptanceTest {
@@ -91,5 +92,6 @@ public class ApiIssueAcceptanceTest extends AcceptanceTest {
 		assertTrue(dbissue.getLabels().contains(label));		
 //		issueRepository.delete(issue);
 //		labelRepository.delete(label);
+
 	}
 }

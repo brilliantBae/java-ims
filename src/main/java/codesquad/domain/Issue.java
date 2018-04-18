@@ -16,7 +16,10 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonProperty;
+=======
+>>>>>>> step3
 import com.google.common.collect.Sets;
 
 import codesquad.UnAuthorizedException;
@@ -32,11 +35,15 @@ public class Issue extends AbstractEntity {
 
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_issue_mileStone_id"))
+<<<<<<< HEAD
 	@JsonProperty
+=======
+>>>>>>> step3
 	private MileStone mileStone;
 
 	@Size(min = 3, max = 20)
 	@Column(nullable = false, length = 20)
+<<<<<<< HEAD
 	@JsonProperty
 	private String subject;
 
@@ -47,6 +54,15 @@ public class Issue extends AbstractEntity {
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "issue_label", joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "label_id"))
 	@JsonProperty
+=======
+	private String subject;
+
+	@ManyToOne
+	private User assignedUser;
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "issue_label", joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "label_id"))
+>>>>>>> step3
 	private Set<Label> labels = Sets.newHashSet();
 
 	@Lob

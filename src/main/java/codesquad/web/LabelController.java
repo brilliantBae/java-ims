@@ -28,6 +28,12 @@ public class LabelController {
 	@Resource(name = "labelService")
 	private LabelService labelService;
 
+<<<<<<< HEAD
+=======
+	@Resource(name = "issueService")
+	private IssueService issueService;
+
+>>>>>>> step3
 	@GetMapping("")
 	public String show_list(@LoginUser User loginUser, Model model) {
 		model.addAttribute("labelList", labelService.findAll());

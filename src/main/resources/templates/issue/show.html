@@ -61,8 +61,12 @@
               <ul id="form-wrap" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                   for="milestone-menu">
                {{# mileStones}}
+<<<<<<< HEAD
                   <form method='post' class="milestone" action="/api/issues/{{issue.id}}/milestones/{{id}}">
                   <input type="hidden" name="_method" value="put">
+=======
+                  <form method='post' action="/issues/{{issue.id}}/setMileStone/{{id}}">
+>>>>>>> step3
   					<!-- form elements -->
   					<button class="mdl-menu__item mdl-button--accent" type="submit">{{subject}}</button>  								
 				</form>
@@ -76,8 +80,12 @@
               <ul id = "label_group" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                   for="label-menu">
                    {{# labelList}}
+<<<<<<< HEAD
                   <form method='post' class='label' action="/api/issues/{{issue.id}}/labels/{{id}}">
                   <input type="hidden" name="_method" value="put">
+=======
+                  <form method='post' action="/issues/{{issue.id}}/setLabel/{{id}}">
+>>>>>>> step3
   					<!-- form elements -->
   					<button class="mdl-menu__item" type="submit">{{subject}}</button>  								
 				</form>
@@ -91,8 +99,12 @@
               <ul id = "assignUser_group" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                   for="assignee-menu">
                   {{# users}}
+<<<<<<< HEAD
                   <form method='post' class='assignUser' action="/api/issues/{{issue.id}}/users/{{id}}">
                   <input type="hidden" name="_method" value="put">
+=======
+                  <form method='post' action="/issues/{{issue.id}}/setMileStone/{{id}}">
+>>>>>>> step3
   					<!-- form elements -->
   					<button class="mdl-menu__item" type="submit">{{userId}}</button>  								
 				 </form>

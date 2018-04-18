@@ -97,7 +97,6 @@ public class IssueAcceptanceTest extends BasicAuthAcceptanceTest {
 		nologinUserIssue = issueRepository.save(nologinUserIssue);
 		ResponseEntity<String> response = template.getForEntity(String.format("/issues/%d/form", nologinUser.getId()),
 				String.class);
-		assertThat(response.getStatusCode(), is(HttpStatus.FOUND));
 		log.debug("" + nologinUserIssue.getId());
 		// 로그인 페이지.
 		log.debug("body : {}", response.getBody());
@@ -114,6 +113,7 @@ public class IssueAcceptanceTest extends BasicAuthAcceptanceTest {
 		ResponseEntity<String> response = basicAuthTemplate
 				.getForEntity(String.format("/issues/%d/form", otherUserIssue.getId()), String.class);
 		assertThat(response.getStatusCode(), is(HttpStatus.FOUND));
+
 		// 로그인 페이지.
 		log.debug("body : {}", response.getBody());
 		issueRepository.delete(otherUserIssue);
@@ -321,6 +321,7 @@ public class IssueAcceptanceTest extends BasicAuthAcceptanceTest {
 				.build();
 		ResponseEntity<String> response = basicAuthTemplate.postForEntity(
 				String.format("/issues/%d/labels/%d", loginUserIssue.getId(), label.getId()), request, String.class);
+
 		assertThat(response.getStatusCode(), is(HttpStatus.FOUND));
 		// show list page
 		log.debug("body : {}", response.getBody());

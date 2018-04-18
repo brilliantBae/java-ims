@@ -38,7 +38,7 @@ public class ApiUserAcceptanceTest extends AcceptanceTest {
 	private UserDto createUserDto(String userId) {
 		return new UserDto(userId, "password", "name");
 	}
-	
+
 	@Test
 	public void update() throws Exception {
 		UserDto newUser = createUserDto("testuser3");

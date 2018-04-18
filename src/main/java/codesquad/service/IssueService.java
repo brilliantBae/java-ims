@@ -42,7 +42,11 @@ public class IssueService {
 		return issueRepository.findAll();
 	}
 
+<<<<<<< HEAD
 	public Issue update(User loginUser, long id, String subject, String comment) {
+=======
+	public Issue update(@LoginUser User loginUser, long id, String subject, String comment) {
+>>>>>>> step3
 		Issue issue = issueRepository.findOne(id);
 		issue.update(loginUser, subject, comment);
 		return issueRepository.save(issue);
@@ -56,6 +60,7 @@ public class IssueService {
 		issueRepository.delete(issue);
 	}
 
+<<<<<<< HEAD
 	public Issue registerMilestone(User loginUser, long issueId, long mileStoneId) {
 		Issue issue = findById(issueId);
 		if (!issue.isSameUser(loginUser)) {
@@ -82,6 +87,28 @@ public class IssueService {
 			throw new UnAuthorizedException();
 		}
 		Label label = labelService.findById(labelId);
+=======
+	public Issue setMileStone(@LoginUser User loginUser, Issue issue, MileStone mileStone) {
+		if (!issue.isSameUser(loginUser)) {
+			throw new UnAuthorizedException();
+		}
+		issue.setMileStone(mileStone);
+		return issueRepository.save(issue);
+	}
+
+	public Issue setAssignedUser(@LoginUser User loginUser, Issue issue, User user) {
+		if (!issue.isSameUser(loginUser)) {
+			throw new UnAuthorizedException();
+		}
+		issue.setAssignedUser(user);
+		return issueRepository.save(issue);
+	}
+
+	public Issue setLabel(@LoginUser User loginUser, Issue issue, Label label) {
+		if (!issue.isSameUser(loginUser)) {
+			throw new UnAuthorizedException();
+		}
+>>>>>>> step3
 		issue.setLabel(label);
 		return issueRepository.save(issue);
 	}

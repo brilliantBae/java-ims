@@ -26,11 +26,12 @@ public abstract class AcceptanceTest {
 	@Autowired
 	private UserRepository userRepository;
 
-	public TestRestTemplate template() {// 인증이 필요없을 때 사용하는 template return 
+	public TestRestTemplate template() {// 인증이 필요없을 때 사용하는 template return
 		return template;
 	}
 
 	public TestRestTemplate basicAuthTemplate() {// 인증이 필요할 때 사용하는 template return
+
 		return basicAuthTemplate(findDefaultUser());
 	}
 
