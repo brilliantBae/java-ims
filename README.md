@@ -1,71 +1,54 @@
 # Issue Managing System
 
-인수테스트 주도 개발(ATDD)을 기반으로 한 github의 이슈관리 시스템을 구현한 프로그램 입니다.
+깃허브의 이슈관리시스템을 모방해 구현한 프로젝트입니다.
 
-## 시작하기
-
-### Prerequisites
-
-프로젝트를 실행시키기 위한 도구 및 프로그램
-* [IntelliJ](https://www.jetbrains.com/idea/download/#section=mac)
-* [Eclipse(STS)](https://spring.io/tools/sts/all)
-* [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-
-## 실행화면
+## 기능
+* 회원가입, 로그인, 개인정보 수정, 로그아웃 기능, 회원목록 기능
+* 로그인 기반 이슈, 마일스톤, 라벨 CRUD
+* 파일첨부, 파일다운로드 기능
 
 
-## Running the tests
+## 기술 스펙
+* Java 1.8
+* Spring Framework, Spring Boot
+* JPA Hibernate
+* HTML/CSS
+* JavaScript
 
-테스트 실행방법(Shortcuts)
-* IntelliJ : ⇧+ ⌃ + R
-* Eclipse(STS) : ⌥ ⌘ X + T
+## 개발과정에서의 어려움과 해결 과정
+### 객체 간 Bidirectional 관계를 맺고 있을때 StackOverFlow 에러 발생
 
-### End-to-End 테스트
+* `Question` 과 `Answer` 가 서로서로 @OneToMany, @ManyToOne 의 관계를 가지는 상황
+* `Question`의 필드로 `List<Answer>` 를 가지고 있어 서로가 서로를 찾고 또 서로가 서로를 찾기 때문에 Infinite Recursion problem 이 발생하기 때문에 stack overflow error 발생
+*  `List<Answer>`에 @JsonIgnore 를 붙여 한쪽에서 관계를 끊어주어 에러를 해결함.
+* 객체들 간 Bidirectional 관계를 맺고 있을때 주의를 요해야 한다는 것을 알게되었고, 상황에서의 해결방법 또한 배울수 있었음.
+* 관련 글 링크 : https://medium.com/@jwb8705/java-ims-ajax-1-db6245ad4b04
 
-* `HTTPRequestTest` : 클라이언트로부터 HTTP 요청이 왔을 때 웹 서버가 요청을 올바르게 인지하고 있는지 확인하기 위한 테스트.
-
-ex)
- `printAllHeader_get()` : HTTP get 요청이 왔을 때 요청 헤더가 올바르게 출력되는지 확인하기 위한 테스트.
-
-```
-    @Test
-    public void printAllHeader_get() throws Exception {
-        InputStream in = new FileInputStream(new File(testDirectory + "getRequestMessage.txt"));
-        httpRequest = new HttpRequest(in);
-        assertEquals("localhost:8080",  httpRequest.getHeader("Host"));
-        assertEquals("keep-alive",  httpRequest.getHeader("Connection"));
-        assertEquals("*/*",  httpRequest.getHeader("Accept"));
-
-    }
-```
-
-* HTTPResponseTest : 웹서버가 클라이언트의 요청을 처리하여 알맞은 응답을 보내는지 확인하기 위한 테스트.
+### 동일 이름 파일 overwrite 문제
 
 
-ex) `createDynamicHTML()` : 웹서버가 응답으로 동적인 HTML 을 생성해서 보내는지 확인하는 테스트.
+- 파일 업로드, 다운로드 구현 과정에서 사용자가 동일한 파일 이름을 입력했을 때 서버 디렉토리에 파일이 저장될때 overwrite 되는 문제점 발생
+- 서버 디렉토리에 저장하는 파일의 이름을 uuid 로 매번 생성해 다른 이름을 부여하고 DB에도 `fileName` 을 생성한 uuid 로, 원래 파일명은 `originalFileName` 으로 저장함으로써 
+해결함.
+- 관련 글 링크 : https://medium.com/@jwb8705/java-ims-file-upload-file-download-e0514a6a3e60
 
-```
-    @Test
-    public void createDynamicHTML() throws Exception {
-        HttpResponse response = new HttpResponse(createOutputStream("HttpResponse.txt"));
-        byte[] body = response.createDynamicHTML("./webapp/user/list_static.html", users);
-        response.responseBody(body);
-    }
+### 올바른 인수테스트 기반 개발(ATDD)방법에 대한 혼동
 
-```
-테스트 실행 후 HttpResponse.txt 에 해당 HTML 출력확인 가능.
 
-## 사용된 도구
+* Acceptance Test의 테스트코드 안에서 직접 데이터베이스에 접근하여 테스트데이터를 생성함.
+* LazyInitializationException 발생
+* 에러의 원인을 구글링을 통해 파악함.
+* 원인은 Collection의 경우, 포함하고 있는 값이 여러개이기 때문에 lazy loading이 허용되어야 하는데 테스트 코드의 경우 트랜잭션이 없는 상태에서는 default 설정이 lazy loading을 허용하지 않는 것으로 되어있기 때문에 에러가 발생
+* 테스트 데이터 역시 브라우저에게 요청을 보내 생성하고, 요청을 통해 생성한 테스트 데이터를 가지고 다른 테스트를 진행함.
+* AcceptanceTest는 브라우저의 역할을 대신하는 테스트임을 이번 에러해결을 통해 몸소 느낄수 있었음.
+* 관련 글 링크 : https://medium.com/@jwb8705/java-ims-ajax-2-%EC%98%AC%EB%B0%94%EB%A5%B8-atdd-%EB%B0%A9%EB%B2%95-222d3319be21
+* https://medium.com/@jwb8705/web-test-a-rest-api-with-java-f29060f1fcc3
 
-* [Maven](https://maven.apache.org/) - 의존성 관리 프로그램
 
-## 프로젝트 관련 지식, 진행과정 관련 글
-* https://medium.com/@jwb8705/web-http-%EC%9D%B4%ED%95%B4-82552992365e
-* https://medium.com/@jwb8705/web-servlet-introduction-15a900f42f87
-* https://medium.com/@jwb8705/web-servlet-servlet-container-b6c3a4c6549f
+## 개발인원 
+1명
+## 개발기간
+2018.01.10 ~ 2018.01.26
 
-## 라이센스
-
-이 프로젝트는 MIT 허가서를 사용합니다 - [LICENSE](https://github.com/brilliantBae/java-was/blob/master/LICENSE) 파일에서 자세히 알아보세요.
 
 ---
