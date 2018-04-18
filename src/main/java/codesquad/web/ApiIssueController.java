@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import codesquad.domain.User;
 import codesquad.security.LoginUser;
 import codesquad.service.IssueService;
+import codesquad.service.LabelService;
+import codesquad.service.MileStoneService;
+import codesquad.service.UserService;
 
 @RestController
 @RequestMapping("/api/issues")
