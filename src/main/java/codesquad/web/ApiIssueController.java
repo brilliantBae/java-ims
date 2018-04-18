@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import codesquad.domain.Label;
-import codesquad.domain.MileStone;
 import codesquad.domain.User;
 import codesquad.security.LoginUser;
 import codesquad.service.IssueService;
